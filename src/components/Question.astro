@@ -10,8 +10,8 @@ const questions = [
     <button id="gen">Generuj Pytanie</button>
 
     <div id="answers">
-        <button id="0">AFDGKSHGSJD</button>
-        <button id="1">Bf</button>
+        <button id="0">A</button>
+        <button id="1">B</button>
         <button id="2">C</button>
         <button id="3">D</button>
     </div>
@@ -31,25 +31,27 @@ const questions = [
         if (questionsTemp.length == 0) questionsTemp = JSON.parse(questionList);
 
         const index = Math.floor(Math.random() * questionsTemp.length)
-        const correctAnswer = Math.floor(Math.random() * (maxAnswers-1) ) // nie ściągaj jk 😉
+        const correctAnswer = Math.floor(Math.random() * maxAnswers) // nie ściągaj jk 😉
         
         const selQuestion = questionsTemp[index];
         questionsTemp[index] = null;
         questionsTemp = questionsTemp.filter(n => n);
 
+        // Insert the question and the correct answer
         document.getElementById("ques").innerText = selQuestion[0]
+        document.getElementById(correctAnswer).innerText = selQuestion[1]
 
+        // Get all questions except the correct one
         let answers = document.getElementById("answers");
-        let buttons = answers.children
+        let buttons = [].slice.call(answers.children);
+        buttons[correctAnswer] = null;
+        buttons = buttons.filter(item => item !== undefined && item !== null)
 
-        for (let i = 0; i < buttons.length; i++) {
-            const id = parseInt(buttons[i].id);
-            
-            if (id == correctAnswer) {
-                document.getElementById(id).innerText = selQuestion[1];
-            }
-            
+        for (let i in buttons) {
+            let targetId = buttons[i].id;
+            document.getElementById(targetId).innerText = selQuestion[parseInt(i)+2]
         }
+
     
     }
 
@@ -64,6 +66,7 @@ footer {
     
     padding: 1em;
 }
+
 #answers > button {
     position: relative;
 }
@@ -87,9 +90,9 @@ footer {
 
     margin-right: 1em;
 }
-#answers > butoon:nth-child(0) {content: 'A';}
-#answers > butoon:nth-child(1) {content: 'A';}
-#answers > butoon:nth-child(2) {content: 'A';}
-#answers > butoon:nth-child(3) {content: 'AB';}
+#answers > button::before:nth-child(0) {content: 'A';}
+#answers > button::before:nth-child(1) {content: 'B';}
+#answers > button::before:nth-child(2) {content: 'C';}
+#answers > button::before:nth-child(3) {content: 'D';}
 
 </style>
