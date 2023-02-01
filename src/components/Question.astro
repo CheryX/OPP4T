@@ -28,7 +28,14 @@ const questions = [
         buttons_[i].addEventListener("click", generateQuestion)
     }
 
-    function generateQuestion() {
+    async function correct(e) {
+        e.target.removeEventListener("click", correct)
+        e.target.style.animation="click 0.5s linear";
+        await new Promise(r => setTimeout(r, 500));
+        e.target.style.animation="";
+    }
+
+    async function generateQuestion() {
         
         if (questionsTemp.length == 0) questionsTemp = JSON.parse(questionList);
 
@@ -44,7 +51,7 @@ const questions = [
         document.getElementById(correctAnswer).innerText = selQuestion[1]
 
         // When player clicks the correct answer
-        document.getElementById(correctAnswer).addEventListener("click", null);
+        document.getElementById(correctAnswer).addEventListener("click", correct);
 
         // Get all questions except the correct one
         let answers = document.getElementById("answers");
@@ -99,6 +106,13 @@ const questions = [
 #answers > button:nth-child(3)::before {content: 'C';}
 #answers > button:nth-child(4)::before {content: 'D';}
 
+@keyframes click {
+    from {
+        color: var(--light)
+    }
+    to {
+        color: greenyellow;
+    }
 }
 
 </style>
