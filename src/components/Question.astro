@@ -6,7 +6,7 @@ const questions = [
 ---
 
 <main>
-    <p id="ques">Question</p>
+    <p id="questionField">Question</p>
 
     <div id="answers">
         <button id="0">A</button>
@@ -19,14 +19,12 @@ const questions = [
 
 <script define:vars={{ questions }}>
 
-    const maxAnswers = 4; //A, B, C, D
+    // Workaround so questionList remains unchanged
     const questionList = JSON.stringify(questions);
     var questionsTemp = JSON.parse(questionList);
 
-    let buttons_ = [].slice.call(document.getElementById("answers").children);
-    for (const i in buttons_) {
-        buttons_[i].addEventListener("click", generateQuestion)
-    }
+    [].slice.call(document.getElementById("answers").children)
+        .forEach(e => e.addEventListener("click", generateQuestion));
 
     async function correct(e) {
         e.target.removeEventListener("click", correct)
@@ -40,14 +38,13 @@ const questions = [
         if (questionsTemp.length == 0) questionsTemp = JSON.parse(questionList);
 
         const index = Math.floor(Math.random() * questionsTemp.length)
-        const correctAnswer = Math.floor(Math.random() * maxAnswers) // nie ściągaj jk 😉
+        const correctAnswer = Math.floor(Math.random() * 4) // nie ściągaj jk 😉
         
         const selQuestion = questionsTemp[index];
-        questionsTemp[index] = null;
-        questionsTemp = questionsTemp.filter(n => n);
+        questionsTemp = removeFromArray(questionsTemp, index);
 
         // Insert the question and the correct answer
-        document.getElementById("ques").innerText = selQuestion[0]
+        document.getElementById("questionField").innerText = selQuestion[0]
         document.getElementById(correctAnswer).innerText = selQuestion[1]
 
         // When player clicks the correct answer
@@ -55,9 +52,7 @@ const questions = [
 
         // Get all questions except the correct one
         let answers = document.getElementById("answers");
-        let buttons = [].slice.call(answers.children);
-        buttons[correctAnswer] = null;
-        buttons = buttons.filter(item => item !== undefined && item !== null)
+        let buttons = removeFromArray([].slice.call(answers.children), correctAnswer);
 
         for (let i in buttons) {
             let targetId = buttons[i].id;
@@ -67,7 +62,13 @@ const questions = [
     
     }
 
-    generateQuestion()
+    function removeFromArray(array, index) {
+        array[index] = null;
+        return array.filter(item => item !== null)
+    }
+
+    generateQuestion();
+
         
 </script>
 
