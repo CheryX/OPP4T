@@ -65,32 +65,42 @@ const questions = [
 
 #answers {
     display: inline-flex;
-    gap: 4em;
+    gap: 0.5em;
 }
 
 #answers > button {
     position: relative;
+    cursor: pointer;
+    
+    background: none;
+    padding: 1em;
+    border: none;
+    
+    color: var(--light);
+    font-size: 4em;
+
+    transition: 
+        color 1s,
+        transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+#answers > button:hover {
+    color: var(--gray);
+    transform: translateY(5px);
+}
+
+
 #answers > button::before {
     content: 'A';
     position: absolute;
-    left: 50%;
     z-index: -100;
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.1);
     font-weight: 900;
 
     font-size: 1.4em;
-    transform: translate(-50%, -14%);
+    transform: translate(-60%, -14%);
 }
-#answers > button {
-    background: none;
-    border: none;
-    font-size: 4em;
-    color: var(--light);
-    border: solid var(--dark);
 
-    cursor: pointer;
-}
 #answers > button:nth-child(1)::before {content: 'A';}
 #answers > button:nth-child(2)::before {content: 'B';}
 #answers > button:nth-child(3)::before {content: 'C';}
@@ -103,6 +113,12 @@ const questions = [
     to {
         color: greenyellow;
     }
+}
+
+#questionField {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 4em;
 }
 
 </style>
