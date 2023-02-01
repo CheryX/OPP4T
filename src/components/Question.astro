@@ -22,74 +22,141 @@ const questions = [
 <main>
     <p id="questionField">Question</p>
 
-    <div id="answers">
-        <button id="0">A</button>
-        <button id="1">B</button>
-        <button id="2">C</button>
-        <button id="3">D</button>
+    <div id="answersComponent">
+
+        <div id="new">
+            <button data-index="0">A</button>
+            <button data-index="1">B</button>
+            <button data-index="2">C</button>
+            <button data-index="3">D</button>
+        </div>
+
+        <div id="now">
+            <button data-index="0">A</button>
+            <button data-index="1">B</button>
+            <button data-index="2">C</button>
+            <button data-index="3">D</button>
+        </div>
+
+        <div id="old">
+            <button data-index="0">A</button>
+            <button data-index="1">B</button>
+            <button data-index="2">C</button>
+            <button data-index="3">D</button>
+        </div>
+
     </div>
+
 
 </main>
 
 <script define:vars={{ questions }}>
 
+    const iter = { old: 2, now: 1, new: 0 };
+    const newNode =  '<div id="new"><button data-index="0">A</button><button data-index="1">B</button><button data-index="2">C</button><button data-index="3">D</button></div>';
+    let nextQuestion = "";
+
     // Workaround so questionList remains unchanged
     const questionList = JSON.stringify(questions);
-    var questionsTemp = JSON.parse(questionList);
+    var questionsTemp = JSON.parse(questionList).sort((a, b) => 0.5 - Math.random());
 
-    [].slice.call(document.getElementById("answers").children)
-        .forEach(e => e.addEventListener("click", generateQuestion));
+    [].slice.call(document.getElementById("now").children)
+        .forEach(e => e.addEventListener("click", nextIteration));
 
-    async function correct(e) {
-        e.target.removeEventListener("click", correct)
-        e.target.style.animation="click 0.5s linear";
-        await new Promise(r => setTimeout(r, 500));
-        e.target.style.animation="";
-    }
+    async function insertQuestion(questionData, id) {
 
-    async function generateQuestion() {
-        if (questionsTemp.length === 0) questionsTemp = JSON.parse(questionList);
-
-        const index = Math.floor(Math.random() * questionsTemp.length);
         const correctAnswerIndex = Math.floor(Math.random() * 4);
-
-        const selectedQuestion = questionsTemp[index];
-        questionsTemp.splice(index, 1);
-
-        document.getElementById("questionField").innerText = selectedQuestion[0];
-
-        const correctAnswerElement = document.getElementById(correctAnswerIndex);
-        correctAnswerElement.innerText = selectedQuestion[1];
+        const correctAnswerElement = document.querySelectorAll(`[data-index="${correctAnswerIndex}"]`)[iter[id]];
+        correctAnswerElement.innerText = questionData[1];
         correctAnswerElement.addEventListener("click", correct);
 
-        const answerButtons = Array.from(document.getElementById("answers").children);
+        const answerButtons = Array.from(document.getElementById(id).children);
         answerButtons.splice(correctAnswerIndex, 1);
 
         for (let i = 0; i < answerButtons.length; i++) {
-            answerButtons[i].innerText = selectedQuestion[i + 2];
+            answerButtons[i].innerText = questionData[i + 2];
         }
+
     }
 
-    generateQuestion();
+    async function correct(e) {
+        e.target.removeEventListener("click", correct)
+
+        e.target.style.animation="click 0.5s linear";
+        document.getElementById("questionField").style.animation = "click 0.5s linear"
+
+        await new Promise(r => setTimeout(r, 500));
+
+        e.target.style.animation="";
+        document.getElementById("questionField").style.animation = ""
+    }
+
+    async function nextIteration() {
+
+        document.getElementById('old').remove()
+        document.getElementById('now').id = 'old';
+        document.getElementById('new').id = 'now';
+
+        document.getElementById('answersComponent').insertAdjacentHTML("afterbegin", newNode);
+
+        [].slice.call(document.getElementById("now").children)
+            .forEach(e => e.addEventListener("click", nextIteration));
+
+        document.getElementById("questionField").innerText = nextQuestion
+        generateQuestion("new");
+
+    }
+
+
+    async function generateQuestion(id, replaceTitle) {
+        if (questionsTemp.length === 0) {
+            questionsTemp = JSON.parse(questionList)
+                .sort((a, b) => 0.5 - Math.random());
+        }
+
+        if (id == "now") document.getElementById("questionField").innerText = questionsTemp[0][0];
+        if (id == "new") nextQuestion = questionsTemp[0][0];
+
+        insertQuestion(questionsTemp[0], id);
+        questionsTemp.splice(0, 1);
+
+    }
+
+    generateQuestion("old");
+    generateQuestion("now");
+    generateQuestion("new");
 
         
 </script>
 
-<style>
+<style is:global>
 
-#answers {
-    display: inline-flex;
-    gap: 0.5em;
+#old, #new, #remove {
+    opacity: 0.1;
 }
 
-#answers > button {
+#answersComponent {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+#answersComponent > div {
+    display: flex;
+    justify-content: space-between;
+
+    transition: 
+        opacity 1s;
+}
+
+#answersComponent > div > button {
     position: relative;
     cursor: pointer;
     
     background: none;
-    padding: 1em;
+    padding: 0.2em 1em;
     border: none;
-    
+
     color: var(--light);
     font-size: 4em;
 
@@ -98,13 +165,13 @@ const questions = [
         transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#answers > button:hover {
+#now > button:hover {
     color: var(--gray);
     transform: translateY(5px);
 }
 
 
-#answers > button::before {
+#answersComponent > div > button::before {
     content: 'A';
     position: absolute;
     z-index: -100;
@@ -115,10 +182,10 @@ const questions = [
     transform: translate(-60%, -14%);
 }
 
-#answers > button:nth-child(1)::before {content: 'A';}
-#answers > button:nth-child(2)::before {content: 'B';}
-#answers > button:nth-child(3)::before {content: 'C';}
-#answers > button:nth-child(4)::before {content: 'D';}
+#answersComponent > div > button:nth-child(1)::before {content: 'A';}
+#answersComponent > div > button:nth-child(2)::before {content: 'B';}
+#answersComponent > div > button:nth-child(3)::before {content: 'C';}
+#answersComponent > div > button:nth-child(4)::before {content: 'D';}
 
 @keyframes click {
     from {
