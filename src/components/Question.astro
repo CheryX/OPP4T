@@ -1,22 +1,6 @@
 ---
-const questions = [
-    // Pytania aktualnie generowane przez ChatGPT
-    ["Ile to 2 + 2?", "4", "3", "2", "5.5"],
-    ["Ile to 2 * 3?", "6", "2", "7", "10"],
-    ["Jaka jest wartość 10 / 2?", "5", "6", "7", "8"],
-    ["2^3 = ?", "8", "10", "12", "6"],
-    ["Jaka jest wartość (2 + 3) * 4?", "20", "10", "15", "18"],
-    ["Ile to 20 / 4?", "5", "6", "7", "8"],
-    ["Jaka jest wartość 3^2?", "9", "6", "8", "7"],
-    ["Ile to 5 + 7?", "12", "10", "14", "15"],
-    ["Jaka jest wartość 9 - 5?", "4", "5", "6", "7"],
-    ["Ile to 6 * 8?", "48", "40", "42", "44"],
-    ["Jaka jest wartość 24 / 4?", "6", "5", "7", "8"],
-    ["Ile to 2^4?", "16", "14", "18", "20"],
-    ["Jaka jest wartość (5 + 3) * 2?", "16", "10", "12", "14"],
-    ["Ile to 20 / 5?", "4", "3", "5", "6"],
-    ["Jaka jest wartość 8^2?", "64", "54", "56", "62"]
-]
+import data from './data.json';
+const questions = data.test;
 ---
 
 <main>
@@ -131,7 +115,7 @@ const questions = [
 
 <style is:global>
 
-#old, #new, #remove {
+#old, #new {
     opacity: 0.1;
 }
 
