@@ -17,7 +17,7 @@ const questions = data.test;
 
     </div>
 
-    <p id="points">Points:</p>
+    <p id="points">Points: 0</p>
 
 </main>
 
@@ -61,14 +61,7 @@ const questions = data.test;
 
         points++;
         document.getElementById("points").innerText = `Points: ${points}`
-
-        e.target.removeEventListener("click", correct)
-
-        e.target.style.animation="click 0.5s linear";
-        document.getElementById("questionField").style.animation = "click 0.5s linear"
-
-        e.target.style.animation="";
-        document.getElementById("questionField").style.animation = ""
+        e.target.removeEventListener("click", correct);
         
     }
 
@@ -77,7 +70,7 @@ const questions = data.test;
         
 </script>
 
-<style is:global>
+<style>
 
 #old, #new {
     opacity: 0.1;
