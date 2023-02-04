@@ -8,21 +8,7 @@ const questions = data.test;
 
     <div id="answersComponent">
 
-        <div id="new">
-            <button data-index="0">A</button>
-            <button data-index="1">B</button>
-            <button data-index="2">C</button>
-            <button data-index="3">D</button>
-        </div>
-
         <div id="now">
-            <button data-index="0">A</button>
-            <button data-index="1">B</button>
-            <button data-index="2">C</button>
-            <button data-index="3">D</button>
-        </div>
-
-        <div id="old">
             <button data-index="0">A</button>
             <button data-index="1">B</button>
             <button data-index="2">C</button>
@@ -37,9 +23,6 @@ const questions = data.test;
 
 <script define:vars={{ questions }}>
 
-    const iter = { old: 2, now: 1, new: 0 };
-    const newNode =  '<div id="new"><button data-index="0">A</button><button data-index="1">B</button><button data-index="2">C</button><button data-index="3">D</button></div>';
-    let nextQuestion = "";
     let points = 0;
 
     // Workaround so questionList remains unchanged
@@ -47,16 +30,16 @@ const questions = data.test;
     var questionsTemp = JSON.parse(questionList).sort((a, b) => 0.5 - Math.random());
 
     [].slice.call(document.getElementById("now").children)
-        .forEach(e => e.addEventListener("click", nextIteration));
+        .forEach(e => e.addEventListener("click", generateQuestion));
 
-    async function insertQuestion(questionData, id) {
+    async function insertQuestion(questionData) {
 
         const correctAnswerIndex = Math.floor(Math.random() * 4);
-        const correctAnswerElement = document.querySelectorAll(`[data-index="${correctAnswerIndex}"]`)[iter[id]];
+        const correctAnswerElement = document.querySelectorAll(`[data-index="${correctAnswerIndex}"]`)[0];
         correctAnswerElement.innerText = questionData[1];
         correctAnswerElement.addEventListener("click", correct);
 
-        const answerButtons = Array.from(document.getElementById(id).children);
+        const answerButtons = Array.from(document.getElementById("now").children);
         answerButtons.splice(correctAnswerIndex, 1);
 
         for (let i = 0; i < answerButtons.length; i++) {
@@ -81,40 +64,20 @@ const questions = data.test;
         document.getElementById("questionField").style.animation = ""
     }
 
-    async function nextIteration() {
-
-        document.getElementById('old').remove()
-        document.getElementById('now').id = 'old';
-        document.getElementById('new').id = 'now';
-
-        document.getElementById('answersComponent').insertAdjacentHTML("afterbegin", newNode);
-
-        [].slice.call(document.getElementById("now").children)
-            .forEach(e => e.addEventListener("click", nextIteration));
-
-        document.getElementById("questionField").innerText = nextQuestion
-        generateQuestion("new");
-
-    }
-
-
-    async function generateQuestion(id, replaceTitle) {
+    async function generateQuestion() {
         if (questionsTemp.length === 0) {
             questionsTemp = JSON.parse(questionList)
                 .sort((a, b) => 0.5 - Math.random());
         }
 
-        if (id == "now") document.getElementById("questionField").innerText = questionsTemp[0][0];
-        if (id == "new") nextQuestion = questionsTemp[0][0];
+        document.getElementById("questionField").innerText = questionsTemp[0][0];
 
-        insertQuestion(questionsTemp[0], id);
+        insertQuestion(questionsTemp[0]);
         questionsTemp.splice(0, 1);
 
     }
 
-    generateQuestion("old");
-    generateQuestion("now");
-    generateQuestion("new");
+    generateQuestion();
 
         
 </script>
