@@ -31,6 +31,7 @@ const questions = data.test;
 
     </div>
 
+    <p id="points">Points:</p>
 
 </main>
 
@@ -39,6 +40,7 @@ const questions = data.test;
     const iter = { old: 2, now: 1, new: 0 };
     const newNode =  '<div id="new"><button data-index="0">A</button><button data-index="1">B</button><button data-index="2">C</button><button data-index="3">D</button></div>';
     let nextQuestion = "";
+    let points = 0;
 
     // Workaround so questionList remains unchanged
     const questionList = JSON.stringify(questions);
@@ -64,6 +66,10 @@ const questions = data.test;
     }
 
     async function correct(e) {
+
+        points++;
+        document.getElementById("points").innerText = `Points: ${points}`
+
         e.target.removeEventListener("click", correct)
 
         e.target.style.animation="click 0.5s linear";
