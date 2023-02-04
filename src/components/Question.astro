@@ -27,13 +27,20 @@ const questions = data.test;
 
     // Workaround so questionList remains unchanged
     const questionList = JSON.stringify(questions);
-    var questionsTemp = JSON.parse(questionList).sort((a, b) => 0.5 - Math.random());
+    var questionsTemp = JSON.parse(questionList).sort(() => 0.5 - Math.random());
 
-    [].slice.call(document.getElementById("now").children)
+    Array.from(document.getElementById("now").children)
         .forEach(e => e.addEventListener("click", generateQuestion));
 
-    async function insertQuestion(questionData) {
+    function generateQuestion() {
 
+        if (questionsTemp.length === 0) {
+            questionsTemp = JSON.parse(questionList).sort(() => 0.5 - Math.random());
+        }
+
+        const questionData = questionsTemp[0]
+        document.getElementById("questionField").innerText = questionData[0];
+        
         const correctAnswerIndex = Math.floor(Math.random() * 4);
         const correctAnswerElement = document.querySelectorAll(`[data-index="${correctAnswerIndex}"]`)[0];
         correctAnswerElement.innerText = questionData[1];
@@ -46,9 +53,11 @@ const questions = data.test;
             answerButtons[i].innerText = questionData[i + 2];
         }
 
+        questionsTemp.splice(0, 1);
+
     }
 
-    async function correct(e) {
+    function correct(e) {
 
         points++;
         document.getElementById("points").innerText = `Points: ${points}`
@@ -58,23 +67,9 @@ const questions = data.test;
         e.target.style.animation="click 0.5s linear";
         document.getElementById("questionField").style.animation = "click 0.5s linear"
 
-        await new Promise(r => setTimeout(r, 500));
-
         e.target.style.animation="";
         document.getElementById("questionField").style.animation = ""
-    }
-
-    async function generateQuestion() {
-        if (questionsTemp.length === 0) {
-            questionsTemp = JSON.parse(questionList)
-                .sort((a, b) => 0.5 - Math.random());
-        }
-
-        document.getElementById("questionField").innerText = questionsTemp[0][0];
-
-        insertQuestion(questionsTemp[0]);
-        questionsTemp.splice(0, 1);
-
+        
     }
 
     generateQuestion();
