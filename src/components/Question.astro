@@ -67,6 +67,17 @@ const questions = data.test;
 
     generateQuestion();
 
+    // Keybinds (imagine you can change them in a nice ui)
+    const keys = ['KeyA', 'KeyS', 'KeyK', 'KeyL'];
+
+    document.addEventListener("keydown", function(event) {
+        for (let i in keys) {
+            if (event.code === keys[i]) {
+                document.querySelectorAll(`[data-index="${i}"]`)[0].click();
+            }
+        }
+    });
+
         
 </script>
 
