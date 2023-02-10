@@ -1,0 +1,88 @@
+---
+const {title, id} = Astro.props;
+---
+
+<div class="modal" id={id}>
+    <div class="modal-box">
+        <div class="title">
+            <h1>{title}</h1>
+
+            <div id="close-button">
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </div>
+        </div>
+
+        <div class="content">
+            <slot />
+        </div>
+
+    </div>
+</div>
+
+<style>
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: #00000080;
+}
+
+.modal-box {
+    margin: auto;
+    background-color: var(--dark);
+    padding: 4em;
+    border-radius: 2em;
+
+    width: 80%;
+    max-width: 1280px;
+}
+
+.modal-box > .title {
+    display: flex;
+    width: 100%;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-box > .title > h1 {
+    margin-top: 0;
+}
+
+.modal-box > .content {
+    max-height: 50vh;
+    overflow: scroll;
+}
+
+#close-button {
+  cursor: pointer;
+  transform: translate(40px, -50px);
+  padding: 20px;
+}
+
+#close-button > span {
+    font-size: 2em
+}
+
+</style>
+
+<script define:vars={{id}}>
+    var modal = document.getElementById(id);
+    var closeButton = document.getElementById("close-button");
+
+    closeButton.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "Escape") closeButton.click();
+    });
+</script>

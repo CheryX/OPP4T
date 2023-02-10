@@ -1,20 +1,157 @@
 ---
-
+import Modal from "./Modal.astro";
 ---
 
 <header>
-    <img src="favicon.svg" alt="logo">
+    <div class="logo">
+        <img src="favicon.svg" alt="logo"> Speros
+    </div>
+
+    <nav>
+
+        <div class="button" id="settings">
+            <span class="material-symbols-outlined">settings</span> Settings
+        </div>
+        
+        <div class="button" id="mode">
+            <span class="material-symbols-outlined">palette</span> Mode
+        </div>
+        
+        <div class="button" id="help">
+            <span class="material-symbols-outlined">pending</span> Help
+        </div>
+
+    </nav>
 </header>
+
+<Modal title="Help" id="helpModal">
+    Halo, halo, tu warszawa i wszystkie oddziały polskiego radia, dziś o godzinie 4 minut 30 oddziały niemieck
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente accusantium nihil voluptas cupiditate excepturi expedita maiores! Minus cupiditate molestias dolore aliquid labore, dolorum assumenda error perspiciatis atque nesciunt, quod vero.</p>
+    <p>Adipisci, soluta ad. Officia in natus voluptate sapiente labore doloribus, sunt provident, excepturi, quisquam expedita veniam cumque voluptatibus non veritatis fugiat eligendi! Sit quos quasi modi ullam voluptatum nemo quod!</p>
+    <p>Dolore hic rem eum, quaerat vero blanditiis ex ratione. Eveniet, nulla ratione. Excepturi praesentium, sint ducimus voluptatem dolorum temporibus quibusdam labore exercitationem enim. Aspernatur, accusantium? Pariatur maiores sapiente cumque ipsa.</p>
+    <p>Eius molestiae perspiciatis iusto quos quae aut placeat natus! Corporis sequi ipsam velit at illo pariatur iusto impedit expedita, ipsum molestias vero quis error ipsa consectetur molestiae totam asperiores ea.</p>
+    <p>Ab sed odit ratione pariatur iure quae temporibus? Iste ipsa, vel debitis laborum labore iure magnam deserunt reprehenderit voluptatum reiciendis unde, rerum cumque accusamus facilis. Exercitationem quaerat at voluptate omnis?</p>
+    <p>Quo id temporibus quod consequuntur voluptates voluptatem tempora blanditiis. Ratione vitae iste facere quo rem aspernatur quis similique, excepturi aliquid, maiores fuga doloribus quibusdam saepe sint ex. Adipisci, deserunt? Suscipit!</p>
+    <p>Repellendus possimus architecto optio est quo praesentium, qui voluptates velit, commodi illo alias consectetur, ipsum veritatis laboriosam sapiente officiis deserunt! Modi consequuntur laboriosam nam debitis, ducimus placeat molestiae alias mollitia!</p>
+
+</Modal>
+
+<Modal title="Settings" id="settingsModal">
+    Halo, halo, tu warszawa i wszystkie oddziały polskiego radia, dziś o godzinie 4 minut 30 oddziały niemieck
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente accusantium nihil voluptas cupiditate excepturi expedita maiores! Minus cupiditate molestias dolore aliquid labore, dolorum assumenda error perspiciatis atque nesciunt, quod vero.</p>
+    <p>Adipisci, soluta ad. Officia in natus voluptate sapiente labore doloribus, sunt provident, excepturi, quisquam expedita veniam cumque voluptatibus non veritatis fugiat eligendi! Sit quos quasi modi ullam voluptatum nemo quod!</p>
+    <p>Dolore hic rem eum, quaerat vero blanditiis ex ratione. Eveniet, nulla ratione. Excepturi praesentium, sint ducimus voluptatem dolorum temporibus quibusdam labore exercitationem enim. Aspernatur, accusantium? Pariatur maiores sapiente cumque ipsa.</p>
+    <p>Eius molestiae perspiciatis iusto quos quae aut placeat natus! Corporis sequi ipsam velit at illo pariatur iusto impedit expedita, ipsum molestias vero quis error ipsa consectetur molestiae totam asperiores ea.</p>
+    <p>Ab sed odit ratione pariatur iure quae temporibus? Iste ipsa, vel debitis laborum labore iure magnam deserunt reprehenderit voluptatum reiciendis unde, rerum cumque accusamus facilis. Exercitationem quaerat at voluptate omnis?</p>
+    <p>Quo id temporibus quod consequuntur voluptates voluptatem tempora blanditiis. Ratione vitae iste facere quo rem aspernatur quis similique, excepturi aliquid, maiores fuga doloribus quibusdam saepe sint ex. Adipisci, deserunt? Suscipit!</p>
+    <p>Repellendus possimus architecto optio est quo praesentium, qui voluptates velit, commodi illo alias consectetur, ipsum veritatis laboriosam sapiente officiis deserunt! Modi consequuntur laboriosam nam debitis, ducimus placeat molestiae alias mollitia!</p>
+
+</Modal>
+
+<Modal title="Mode" id="modeModal">
+    Halo, halo, tu warszawa i wszystkie oddziały polskiego radia, dziś o godzinie 4 minut 30 oddziały niemieck
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente accusantium nihil voluptas cupiditate excepturi expedita maiores! Minus cupiditate molestias dolore aliquid labore, dolorum assumenda error perspiciatis atque nesciunt, quod vero.</p>
+    <p>Adipisci, soluta ad. Officia in natus voluptate sapiente labore doloribus, sunt provident, excepturi, quisquam expedita veniam cumque voluptatibus non veritatis fugiat eligendi! Sit quos quasi modi ullam voluptatum nemo quod!</p>
+    <p>Dolore hic rem eum, quaerat vero blanditiis ex ratione. Eveniet, nulla ratione. Excepturi praesentium, sint ducimus voluptatem dolorum temporibus quibusdam labore exercitationem enim. Aspernatur, accusantium? Pariatur maiores sapiente cumque ipsa.</p>
+    <p>Eius molestiae perspiciatis iusto quos quae aut placeat natus! Corporis sequi ipsam velit at illo pariatur iusto impedit expedita, ipsum molestias vero quis error ipsa consectetur molestiae totam asperiores ea.</p>
+    <p>Ab sed odit ratione pariatur iure quae temporibus? Iste ipsa, vel debitis laborum labore iure magnam deserunt reprehenderit voluptatum reiciendis unde, rerum cumque accusamus facilis. Exercitationem quaerat at voluptate omnis?</p>
+    <p>Quo id temporibus quod consequuntur voluptates voluptatem tempora blanditiis. Ratione vitae iste facere quo rem aspernatur quis similique, excepturi aliquid, maiores fuga doloribus quibusdam saepe sint ex. Adipisci, deserunt? Suscipit!</p>
+    <p>Repellendus possimus architecto optio est quo praesentium, qui voluptates velit, commodi illo alias consectetur, ipsum veritatis laboriosam sapiente officiis deserunt! Modi consequuntur laboriosam nam debitis, ducimus placeat molestiae alias mollitia!</p>
+
+</Modal>
+
+<script>
+    const settingsButton = document.getElementById("settings");
+    const modeButton = document.getElementById("mode");
+    const helpButton = document.getElementById("help");
+
+    const helpModal = document.getElementById("helpModal");
+    const modeModal = document.getElementById("modeModal");
+    const settingsModal = document.getElementById("settingsModal");
+
+    document.addEventListener("keydown", function(event) {
+        if (event.code === "KeyO") settingsButton.click();
+        if (event.code === "KeyM") modeButton.click();
+        if (event.code === "F1") helpButton.click();
+    });
+
+    helpButton.addEventListener("click", e => {
+        helpModal.style.display = "flex";
+    }); 
+
+    modeButton.addEventListener("click", e => {
+        modeModal.style.display = "flex";
+    }); 
+
+    settingsButton.addEventListener("click", e => {
+        settingsModal.style.display = "flex";
+    });
+
+</script>
 
 <style>
 
 header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    width: 100vw;
-    box-sizing: border-box;
+    width: 100%;
+    max-width: 1280px;
     
-    padding: 1em;
+    padding: 1em 0;
+}
+
+
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 1.5em;
+    font-weight: 700;
+    font-style: italic;
+
+    cursor: default;
+}
+
+.logo > img {
+    height: 2.8em;
+    margin-right: 0.5ch;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav > .button {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.2em;
+    padding: 0.3em 1.2em;
+
+    transition: color 0.5s cubic-bezier(0.165, 0.84, 0.44, 1),
+                transform 0.5s cubic-bezier(.15,.8,.5,.9);
+}
+
+nav > .button > span {
+    font-size: 1.3em;
+    margin-right: 0.4em;
+}
+
+nav > .button:hover {
+    color: #BEBEBE;
+    cursor: pointer;
+}
+
+nav > .button:active {
+    color: #868686;
+    transform: translateY(5px);
 }
 
 </style>
