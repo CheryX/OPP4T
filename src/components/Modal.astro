@@ -7,7 +7,7 @@ const {title, id} = Astro.props;
         <div class="title">
             <h1>{title}</h1>
 
-            <div id="close-button">
+            <div class="close-button">
                 <span class="material-symbols-outlined">
                     close
                 </span>
@@ -62,13 +62,13 @@ const {title, id} = Astro.props;
     overflow: scroll;
 }
 
-#close-button {
+.close-button {
   cursor: pointer;
   transform: translate(40px, -50px);
   padding: 20px;
 }
 
-#close-button > span {
+.close-button > span {
     font-size: 2em
 }
 
@@ -76,7 +76,7 @@ const {title, id} = Astro.props;
 
 <script define:vars={{id}}>
     var modal = document.getElementById(id);
-    var closeButton = document.getElementById("close-button");
+    var closeButton = modal.children[0].children[0].children[1]; // xD
 
     closeButton.addEventListener("click", function() {
         modal.style.display = "none";
